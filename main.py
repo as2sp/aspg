@@ -64,7 +64,7 @@ while True:
 
         if password_length > 4:
 
-            special_char_count = password_length // 8 + 1
+            special_char_count = password_length // (random.randint(8, 10)) + 1
 
             min_distance = min_char_distance + 1
             special_char_positions = []
