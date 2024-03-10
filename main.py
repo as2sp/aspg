@@ -4,6 +4,7 @@ import pyperclip
 import configparser
 import logging
 
+# Processing special chars list in config.ini
 with open('config.ini', 'r') as file:
     for line in file:
 
@@ -18,6 +19,7 @@ config.read('config.ini')
 
 symbols = config.get('chars', 'symbols')
 
+# Processing common chars list in config.ini
 if symbols == 'letters':
     characters = string.ascii_lowercase
 elif symbols == 'LETTERS':
@@ -41,10 +43,12 @@ elif ',' in symbols:
 else:
     characters = symbols
 
+# Check that logging is enabled in config.ini
 enable_logging = config.getboolean('log', 'enable')
 
-if min_char_distance > 4:
-    print("min_char_distance more than 4 in config.ini. Program terminated.")
+#Check that minimal amount of common chars between special chars is not more than 5
+if min_char_distance < 1 or min_char_distance > 5:
+    print("min_char_distance must be between 1 and 5 in config.ini. Program terminated.")
 
     if enable_logging:
         log_filename = config.get('log', 'filename')
@@ -53,6 +57,7 @@ if min_char_distance > 4:
         logging.info("min_char_distance more than 4 in config.ini. Program terminated.")
     raise SystemExit
 
+# Main app starts here
 while True:
     try:
         password_length = int(input("Enter the number (not less than 5) of password characters: "))
@@ -115,6 +120,7 @@ while True:
 
     except KeyboardInterrupt:
 
+        # Start logging if enabled in config.ini
         if enable_logging:
             log_filename = config.get('log', 'filename')
             logging.getLogger().handlers = []
