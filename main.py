@@ -46,8 +46,8 @@ else:
 # Check that logging is enabled in config.ini
 enable_logging = config.getboolean('log', 'enable')
 
-#Check that minimal amount of common chars between special chars is not more than 5
-if min_char_distance < 1 or min_char_distance > 5:
+# Check that minimal amount of common chars between special chars is in interval 0 and 4
+if min_char_distance < 0 or min_char_distance > 4:
     print("min_char_distance must be between 1 and 5 in config.ini. Program terminated.")
 
     if enable_logging:
